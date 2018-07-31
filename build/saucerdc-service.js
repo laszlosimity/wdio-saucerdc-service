@@ -4,6 +4,23 @@ class SauceRDCService {
             return 'https://app.testobject.com/api/rest/v2/appium/session/' + sessionId + '/test';
     }
 
+   /* onPrepare(config, capabilities) {
+            console.log('In onPrepare');
+            config.protocol = 'https';
+            config.host = 'localhost';
+            config.port = '443';
+            config.path = '/wd/hub';
+            if (config.testobject_dc == 'eu') {
+                config.host = 'eu1.appium.testobject.com';
+            }
+            else if (config.testobject_dc == 'us') {
+                config.host = 'us1.appium.testobject.com';
+            }
+            else {
+                console.log('Please specify a Data Center location - us or eu, defaulting to US');
+                config.host = 'us1.appium.testobject.com';
+            }
+    }*/
 
     before(capabilities) {
         this.sessionId = global.browser.sessionId;
@@ -59,7 +76,7 @@ class SauceRDCService {
                 return _request2.default.put(_this.getSauceRestUrl(sessionId), {
                     json: true,
                     body: _this.getBody(failures, calledOnReload)
-                }, function (e, res, body) {
+                }, function (e, res, getBody) {
                     if (e) {
                         return reject(e);
                     }
