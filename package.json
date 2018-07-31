@@ -1,0 +1,23 @@
+{
+  "name": "wdio-saucerdc-service",
+  "version": "0.2.0",
+  "description": "WDIO Service for Sauce Labs Real Device Cloud",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laszlosimity/wdio-saucerdc-service.git"
+  },
+  "keywords": [
+    "wdio-plugin",
+    "wdio-service"
+  ],
+  "author": "Laszlo Simity",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laszlosimity/wdio-saucerdc-service/issues"
+  },
+  "homepage": "https://github.com/laszlosimity/wdio-saucerdc-service#readme"
+}
