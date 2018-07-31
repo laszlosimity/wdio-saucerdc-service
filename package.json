@@ -1,6 +1,6 @@
 {
   "name": "wdio-saucerdc-service",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "WDIO Service for Sauce Labs Real Device Cloud",
   "main": "index.js",
   "scripts": {
