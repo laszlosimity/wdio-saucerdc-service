@@ -4,7 +4,7 @@ class SauceRDCService {
             return 'https://app.testobject.com/api/rest/v2/appium/session/' + sessionId + '/test';
     }
 
-    onPrepare(config, capabilities) {
+    /*onPrepare(config, capabilities) {
             console.log('In onPrepare');
             config.protocol = 'https';
             config.host = 'localhost';
@@ -20,7 +20,7 @@ class SauceRDCService {
                 console.log('Please specify a Data Center location - us or eu, defaulting to US');
                 config.host = 'us1.appium.testobject.com';
             }
-    }
+    }*/
 
     before(capabilities) {
         this.sessionId = global.browser.sessionId;
@@ -58,33 +58,36 @@ class SauceRDCService {
     }
 
     after(result, capabilities, specs) {
-        if (!this.sauceUser || !this.sauceKey) {
-            return;
-        }
-
         console.log('in after');
-        return this.updateJob(this.sessionId, this.failures);
+            return this.updateJob(this.sessionId, this.failures);
     }
 
     updateJob(sessionId, failures) {
-            console.log('in updateJob');
-            var _this = this;
+           var resultToSend = true;
 
-            var calledOnReload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        if (failures > 0) //failed
+        { 
+            resultToSend = false;
+        }
 
-            return new Promise(function (resolve, reject) {
-                return _request2.default.put(_this.getSauceRestUrl(sessionId), {
-                    json: true,
-                    body: _this.getBody(failures, calledOnReload)
-                }, function (e, res, getBody) {
-                    if (e) {
-                        return reject(e);
-                    }
-                    global.browser.jobData = body;
-                    _this.failures = 0;
-                    resolve(body);
-                });
-            });
+        var request = require('request');
+        var theUri = getSauceRDCRestUrl(this.sessionId);
+
+        var options = {
+            json: true,
+            url: theUri,
+            method: 'PUT',
+            body: { "passed": resultToSend }
+        }
+ 
+    //    function callback(error, response, body) {
+          //console.log('ERROR' + error);
+          //console.log('RESPONSE Code ' + response.statusCode);
+          //console.log('RESPONSE Body ' + response.status)
+          //console.log('BODY' + body);
+    //    }
+ 
+       request(options, callback);
     }
 
     getBody(failures) {
