@@ -1,2 +1,2 @@
-var SauceRDCService = require('./build/saucerdc-service');
-module.exports = SauceRDCService;
+var SauceRDCService = require('./build/saucerdc-service')
+module.exports = new SauceRDCService()
