@@ -1,26 +1,27 @@
 class SauceRDCService {
+
+    onPrepare(config, capabilities) {
+
+            console.log('In onPrepare');
+            this.config.protocol = 'https';
+            this.config.port = '443';
+            this.config.path = '/wd/hub';
+            if (config.testobject_dc == 'eu') {
+                this.config.host = 'eu1.appium.testobject.com';
+            }
+            else if (config.testobject_dc == 'us') {
+                this.config.host = 'us1.appium.testobject.com';
+            }
+            else {
+                console.log('Please specify a Data Center location - us or eu, defaulting to US');
+                this.config.host = 'us1.appium.testobject.com';
+            }
+    
+    }
     
     getSauceRDCRestUrl(sessionId) {
             return 'https://app.testobject.com/api/rest/v2/appium/session/' + sessionId + '/test';
     }
-
-    /*onPrepare(config, capabilities) {
-            console.log('In onPrepare');
-            config.protocol = 'https';
-            config.host = 'localhost';
-            config.port = '443';
-            config.path = '/wd/hub';
-            if (config.testobject_dc == 'eu') {
-                config.host = 'eu1.appium.testobject.com';
-            }
-            else if (config.testobject_dc == 'us') {
-                config.host = 'us1.appium.testobject.com';
-            }
-            else {
-                console.log('Please specify a Data Center location - us or eu, defaulting to US');
-                config.host = 'us1.appium.testobject.com';
-            }
-    }*/
 
     before(capabilities) {
         this.sessionId = global.browser.sessionId;
@@ -71,7 +72,7 @@ class SauceRDCService {
         }
 
         var request = require('request');
-        var theUri = getSauceRDCRestUrl(this.sessionId);
+        var theUri = this.getSauceRDCRestUrl(this.sessionId);
 
         var options = {
             json: true,
@@ -80,12 +81,9 @@ class SauceRDCService {
             body: { "passed": resultToSend }
         }
  
-    //    function callback(error, response, body) {
-          //console.log('ERROR' + error);
-          //console.log('RESPONSE Code ' + response.statusCode);
-          //console.log('RESPONSE Body ' + response.status)
-          //console.log('BODY' + body);
-    //    }
+        function callback(error, response, body) {
+            //nothing at the moment 
+        }
  
        request(options, callback);
     }
