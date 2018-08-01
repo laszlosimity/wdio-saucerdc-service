@@ -4,7 +4,6 @@ class SauceRDCLaunchService {
      * modify config and launch sauce connect
      */
     onPrepare (config, capabilities) {
-            console.log('In onPrepare');
             config.protocol = 'https';
             config.port = '443';
             config.path = '/wd/hub';
